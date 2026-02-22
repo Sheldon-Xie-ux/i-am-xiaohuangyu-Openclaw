@@ -1,0 +1,14 @@
+{
+  "agent": {
+    "id": "trader",
+    "name": "Trader",
+    "description": "交易执行 Agent"
+  },
+  "model": {
+    "primary": "kimi-coding/k2p5"
+  },
+  "workspace": "/workspace-trader",
+  "gateway": {
+    "url": "ws://127.0.0.1:18789"
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "_comment": "OpenClaw 多 Agent Token 优化模板 - 复制此文件为 openclaw.json 并填写你的配置",
+  
+  "models": {
+    "providers": {
+      "kimi-coding": {
+        "baseUrl": "https://api.moonshot.cn/v1",
+        "apiKey": "YOUR_KIMI_API_KEY_HERE",
+        "models": [
+          {"id": "k2p5", "name": "Kimi K2.5"}
+        ]
+      },
+      "openai": {
+        "baseUrl": "https://api.openai.com/v1",
+        "apiKey": "YOUR_OPENAI_API_KEY_HERE",
+        "models": [
+          {"id": "gpt-4o-mini", "name": "GPT-4o Mini"}
+        ]
+      }
+    }
+  },
+
+  "agents": {
+    "defaults": {
+      "model": {"primary": "kimi-coding/k2p5"},
+      "contextPruning": {
+        "mode": "cache-ttl",
+        "ttl": "1m",
+        "softTrimRatio": 0.5,
+        "hardClearRatio": 0.45,
+        "softTrim": {
+          "maxChars": 1500,
+          "headChars": 500,
+          "tailChars": 500
+        },
+        "hardClear": {
+          "enabled": true,
+          "placeholder": "[旧消息已压缩]"
+        }
+      },
+      "compaction": {
+        "mode": "safeguard",
+        "reserveTokensFloor": 4000,
+        "memoryFlush": {
+          "enabled": true,
+          "softThresholdTokens": 3000,
+          "prompt": "检查当前会话，将关键决策、用户偏好、待办事项等持久化到 memory/YYYY-MM-DD.md"
+        }
+      },
+      "heartbeat": {"every": "3h"}
+    },
+    "list": [
+      {
+        "id": "main",
+        "model": {"primary": "kimi-coding/k2p5", "fallbacks": ["openai/gpt-4o-mini"]}
+      },
+      {
+        "id": "trader",
+        "workspace": "/workspace-trader",
+        "agentDir": "/agents/trader/agent",
+        "model": "kimi-coding/k2p5"
+      },
+      {
+        "id": "assistant",
+        "workspace": "/workspace-assistant",
+        "agentDir": "/agents/assistant/agent",
+        "model": "openai/gpt-4o-mini"
+      }
+    ]
+  },
+
+  "bindings": [
+    {
+      "agentId": "trader",
+      "match": {
+        "channel": "feishu",
+        "peer": {"kind": "group", "id": "YOUR_TRADER_GROUP_ID"}
+      }
+    },
+    {
+      "agentId": "assistant",
+      "match": {
+        "channel": "feishu",
+        "peer": {"kind": "group", "id": "YOUR_ASSISTANT_GROUP_ID"}
+      }
+    }
+  ],
+
+  "tools": {
+    "agentToAgent": {
+      "enabled": true,
+      "allow": ["main", "trader", "assistant"]
+    }
+  },
+
+  "channels": {
+    "feishu": {
+      "enabled": true,
+      "dmPolicy": "pairing",
+      "accounts": {
+        "main": {
+          "appId": "YOUR_FEISHU_APP_ID",
+          "appSecret": "YOUR_FEISHU_APP_SECRET"
+        }
+      },
+      "groupPolicy": "open",
+      "groups": {
+        "YOUR_TRADER_GROUP_ID": {"agentId": "trader", "requireMention": false},
+        "YOUR_ASSISTANT_GROUP_ID": {"agentId": "assistant", "requireMention": false}
+      }
+    }
+  },
+
+  "gateway": {
+    "port": 18789,
+    "mode": "local"
+  }
+}

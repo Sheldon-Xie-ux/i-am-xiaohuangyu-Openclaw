@@ -1,0 +1,15 @@
+{
+  "agent": {
+    "id": "assistant",
+    "name": "Assistant",
+    "description": "通用助手 Agent"
+  },
+  "model": {
+    "primary": "openai/gpt-4o-mini",
+    "fallbacks": ["kimi-coding/k2p5"]
+  },
+  "workspace": "/workspace-assistant",
+  "gateway": {
+    "url": "ws://127.0.0.1:18789"
+  }
+}
