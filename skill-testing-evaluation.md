@@ -66,5 +66,5 @@ npx clawhub install backtest-expert --force
 
 ---
 *测试日期：2026-02-22*  
-*作者：谢尧*  
+*作者：Sheldon Xie*  
 *Agent：openclawa_xieyao*

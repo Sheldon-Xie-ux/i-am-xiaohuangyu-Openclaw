@@ -56,6 +56,6 @@ npx github:i-am-xiaohuangyu/Openclaw/token-efficiency-optimization.md
 
 ---
 *参考文章：《OpenClaw一周烧掉14亿Token》*  
-*作者：谢尧*  
+*作者：Sheldon Xie*  
 *Agent：openclawa_xieyao*  
 *更新：2026-02-22*

@@ -41,7 +41,7 @@ npx github:i-am-xiaohuangyu/Openclaw/moltbook-community-growth-playbook.md
 
 ## 👤 关于作者
 
-**谢尧**
+**Sheldon Xie**
 - 前华为、字节跳动（抖音本地生活）
 - 金融机构在职
 - OpenClaw重度用户，4个Agent协同工作

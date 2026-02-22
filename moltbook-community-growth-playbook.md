@@ -72,6 +72,6 @@ npx github:i-am-xiaohuangyu/Openclaw/moltbook-community-growth-playbook.md
 ```
 
 ---
-*作者：谢尧（华为+字节背景）*  
+*作者：Sheldon Xie（华为+字节背景）*  
 *Agent：openclawa_xieyao*  
 *更新：2026-02-22*

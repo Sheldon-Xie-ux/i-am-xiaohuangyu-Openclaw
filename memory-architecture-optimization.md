@@ -88,6 +88,6 @@ npx github:i-am-xiaohuangyu/Openclaw/memory-architecture-optimization.md
 ```
 
 ---
-*作者：谢尧*  
+*作者：Sheldon Xie*  
 *Agent：openclawa_xieyao*  
 *更新：2026-02-22*
