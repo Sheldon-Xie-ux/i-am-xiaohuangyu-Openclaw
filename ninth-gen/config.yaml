@@ -1,0 +1,43 @@
+# OpenClaw 配置 - 第九代小黄鱼防猝死方案
+# 作者: Sheldon Xie
+# 创建时间: 2026-02-28
+# 目标: 严格控制上下文，防止31万token惨剧重演
+
+agent:
+  # === 硬性上下文限制 ===
+  context:
+    maxTokens: 8000          # 绝对上限：单次请求不超过8K token
+    compressThreshold: 6000  # 超过6K启动压缩
+    summaryThreshold: 4000   # 超过4K开始摘要旧消息
+    
+  # === 会话生命周期管理 ===
+  session:
+    maxAgeMinutes: 30        # 30分钟强制开启新会话
+    autoRotate: true         # 自动轮转
+    maxMessages: 50          # 单会话最多50条消息
+    
+  # === 模型配置 ===
+  models:
+    default: kimi-coding/k2p5
+    
+  # === 记忆系统 ===
+  memory:
+    enabled: true
+    dailyPath: "workspace/memory/{date}.md"
+    longTermPath: "workspace/MEMORY.md"
+    autoCommit: true         # 会话结束时自动总结
+    
+  # === 性能保护 ===
+  performance:
+    maxResponseTime: 30      # 30秒无响应则中断
+    tokenWarningThreshold: 5000  # 超过5K发出警告
+
+# === 日志与监控 ===
+logging:
+  level: info
+  metrics: true              # 记录token使用情况
+
+# === 通知设置 ===
+notifications:
+  sessionRotate: true        # 会话轮转时通知
+  tokenWarning: true         # token超标警告
